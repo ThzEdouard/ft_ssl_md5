@@ -48,15 +48,16 @@ uint32_t	PADDING[] = { 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 						  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 						  };
 
-struct md5
+typedef struct s_md5Context
 {
-	uint32_t	size;
-	uint32_t	digest[16];
-	uint32_t	buffer[4];
-};
+	uint64_t	size;
+	uint32_t	state[4];
+	uint8_t		buffer[64];
+	uint8_t		digest[16];
+}				t_md5Context;
 
 
-
+t_md5Context	init();
 
 // char	*md5(const char *str);
 
