@@ -18,7 +18,7 @@
 
 # define LEFTROTATE(x, c) (((x) << (c)) | ((x) >> (32 - c)))
 
-typedef struct s_md5Context
+typedef struct
 {
 	uint64_t size;
 	uint32_t buffer[4];
@@ -27,10 +27,10 @@ typedef struct s_md5Context
 }				t_md5Context;
 
 
-void	init(t_md5Context * ctx);
-void	update(t_md5Context *ctx, uint8_t *input_buf, size_t input_len);
-void	step(uint32_t *buffer, uint32_t *input);
-void	finalize(t_md5Context *ctx);
-uint8_t	*md5(char *str);
+t_md5Context	init();
+void			update(t_md5Context *ctx, uint8_t *input_buf, size_t input_len);
+void			step(uint32_t *buffer, uint32_t *input);
+void			finalize(t_md5Context *ctx);
+uint8_t			*md5(const char *str);
 
 #endif

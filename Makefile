@@ -9,7 +9,7 @@ OBJ_DIR := obj
 OBJ_ALGORITHME := $(OBJ_DIR)/algorithme
 
 # Files
-SRCS_FILES := main
+SRCS_FILES := main parsing
 SRCS_ALGORITHME := md5
 
 # Output executable

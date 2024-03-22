@@ -22,9 +22,7 @@ static uint32_t	K[] = {0xd76aa478, 0xe8c7b756, 0x242070db, 0xc1bdceee,
 					   0x6fa87e4f, 0xfe2ce6e0, 0xa3014314, 0x4e0811a1,
 					   0xf7537e82, 0xbd3af235, 0x2ad7d2bb, 0xeb86d391};
 
-/*
- * Padding used to make the size (in bits) of the input congruent to 448 mod 512
- */
+
 static uint8_t	PADDING[] = {0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 							 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 							 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -35,14 +33,17 @@ static uint8_t	PADDING[] = {0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 							 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 
 
-void	init(t_md5Context *ctx)
+t_md5Context	init()
 {
-	ctx->size = 0;
+	t_md5Context	ctx;
 
-	ctx->buffer[0] = A;
-	ctx->buffer[1] = B;
-	ctx->buffer[2] = C;
-	ctx->buffer[3] = B;
+	ctx.size = (uint64_t)0;
+
+	ctx.buffer[0] = (uint32_t)A;
+	ctx.buffer[1] = (uint32_t)B;
+	ctx.buffer[2] = (uint32_t)C;
+	ctx.buffer[3] = (uint32_t)D;
+	return (ctx);
 }
 
 void	update(t_md5Context * ctx, uint8_t *input_buf, size_t input_len)
@@ -136,25 +137,15 @@ void			step(uint32_t *buffer, uint32_t *input)
 	buffer[3] += DD;
 }
 
-
-static void print_hashs(uint8_t *p){
-    for(unsigned int i = 0; i < 16; ++i){
-        printf("%02x", p[i]);
-    }
-    printf("\n");
-}
-
-uint8_t	*md5(char *str)
+uint8_t	*md5(const char *str)
 {
 	uint8_t	*result = malloc(16 * sizeof(uint8_t));
 	if (!result)
 		return (NULL);
-	t_md5Context ctx;
-	init(&ctx);
+	t_md5Context ctx = init();
 	update(&ctx, (uint8_t *)str, strlen(str));
 	finalize(&ctx);
 
-	print_hashs(ctx.digest);
 	memcpy(result, ctx.digest, 16);
 	return (result);
 }
