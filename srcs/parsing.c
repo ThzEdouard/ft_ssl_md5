@@ -18,7 +18,7 @@ cmdFunction select_cmd(const char *cmd)
 	return (NULL);
 }
 
-uint32_t getflags(uint32_t argc, char *argv[])
+uint32_t flags_or_index(uint32_t argc, char *argv[])
 {
 	uint32_t x, index, result = 0;
 
@@ -35,5 +35,15 @@ uint32_t getflags(uint32_t argc, char *argv[])
 		if (flags[x] == NULL)
 			break;
 	}
-	return (result << 16) | index;
+	return (result << 16) | (index - 1);
+}
+
+uint32_t	argv_index(uint32_t flag_index)
+{
+	return (flag_index & 0xFFFF);
+}
+
+uint32_t	getflags(uint32_t flag_index)
+{
+	return  (flag_index >> 16);
 }

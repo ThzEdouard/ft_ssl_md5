@@ -16,7 +16,7 @@
 # define H(X, Y, Z) (X ^ Y ^ Z)
 # define I(X, Y, Z) (Y ^ (X | ~Z))
 
-# define LEFTROTATE(x, c) (((x) << (c)) | ((x) >> (32 - c)))
+# define LEFTROTATE(x, c) (((x) << (c)) | ((x) >> (32 - (c))))
 
 typedef struct
 {

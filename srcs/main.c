@@ -8,16 +8,6 @@ void print_hash(uint8_t *p){
 	printf("\n");
 }
 
-uint32_t	index_i(uint32_t flag_index)
-{
-	return (flag_index & 0xFFFF);
-}
-
-uint32_t	flags(uint32_t flag_index)
-{
-	return  (flag_index >> 16);
-}
-
 int	main(int argc, char *argv[])
 {
 	if (argc < 2)
@@ -25,10 +15,10 @@ int	main(int argc, char *argv[])
 	cmdFunction	cmd = select_cmd(argv[1]);
 	if (!cmd)
 		return (1);
-	uint32_t flags_index = getflags((uint32_t)argc, argv);
+	uint32_t flags_index = flags_or_index((uint32_t)argc, argv);
 
-	printf("Résultat des indicateurs : %u\n", flags(flags_index));
-	printf("Index final : %u\n", index_i(flags_index));
+	printf("Résultat des indicateurs : %u\n", getflags(flags_index));
+	printf("Index final : %u\n", argv_index(flags_index));
 	uint8_t *f = cmd("Hello");
 	print_hash(f);
 	free(f);
