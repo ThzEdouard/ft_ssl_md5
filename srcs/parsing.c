@@ -4,18 +4,19 @@ static const char	*flags[] = {"-p", "-q", "-r", "-s", NULL};
 
 static const t_command command_hash_map[] =
 {
-	{"md5", md5},
-	{"sha256", NULL},
-	{NULL, NULL}
+	{"md5", md5, print_md5hash},
+	{"sha256", sha256, print_sha256hash},
+	{NULL, NULL, NULL}
 };
 
-cmdFunction select_cmd(const char *cmd)
+t_command select_cmd(const char *cmd)
 {
-	for(uint32_t i = 0; command_hash_map[i].cmd != NULL; ++i)
+	uint32_t i;
+	for(i = 0; command_hash_map[i].cmd != NULL; ++i)
 		if (strcmp((char *)cmd, command_hash_map[i].cmd) == 0)
-			return (command_hash_map[i].cmd_function);
+			return (command_hash_map[i]);
 	printf(COMMAND_USAGE, cmd);
-	return (NULL);
+	return (command_hash_map[i]);
 }
 
 uint32_t flags_or_index(uint32_t argc, char *argv[])

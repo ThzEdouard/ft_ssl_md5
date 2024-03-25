@@ -129,14 +129,14 @@ uint8_t	*sha256(const char *str)
 	if (!result)
 		return (NULL);
 	t_sha256 ctx = sha_init();
-	sha_update(&ctx, (uint8_t *)str, strlen(str));
+	sha_update(&ctx, (uint8_t *)str, str ? strlen(str) : 0);
 	sha_finalize(&ctx);
 
 	memcpy(result, ctx.digest, 32);
 	return (result);
 }
 
-//a changer 
+//a changer
 void	print_sha256hash(uint8_t *p){
 	for(unsigned int i = 0; i < 32; ++i){
 		printf("%02x", p[i]);

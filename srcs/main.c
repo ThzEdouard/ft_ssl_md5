@@ -12,8 +12,8 @@ int	main(int argc, char *argv[])
 {
 	if (argc < 2)
 		return (printf(USAGE), 1);
-	cmdFunction	cmd = select_cmd(argv[1]);
-	if (!cmd)
+	t_command	cmd = select_cmd(argv[1]);
+	if (!cmd.cmd)
 		return (1);
 	t_option	opt;
 	uint32_t	flags_index = flags_or_index((uint32_t)argc, argv);
@@ -22,15 +22,16 @@ int	main(int argc, char *argv[])
 	opt.flags = getflags(flags_index);
 	set_string_or_file(&opt, argv, argc, argv_index(flags_index));
 
-	pross_stdin(cmd, argv[1], &opt);
-	
-	// for (int i = 0; opt.string_file[i] != NULL; ++i)
-	// 	printf("%s\n", opt.string_file[i]);
-	// print_hash(sha256("Hello!"));
-	// printf("Résultat des indicateurs : %u\n", getflags(flags_index));
-	// printf("Index final : %u\n", argv_index(flags_index));
-	// uint8_t *f = cmd("Hello");
-	// print_hash(f);
-	// free(f);
+	if (opt.flags & FLAGS_P)
+		print_stdin(&opt, opt.cmd.cmd_function("hello"), "hello");
+	if (opt.flags & FLAGS_S)
+	{
+		print_string(&opt, opt.cmd.cmd_function((const char *)opt.string_file[0]), (const char *)opt.string_file[0]);
+		for (uint32_t i = 1; opt.string_file[i] != NULL; ++i)
+			pross_file(&opt, opt.string_file[i]);
+	}
+	else
+		for (uint32_t i = 0; opt.string_file[i] != NULL; ++i)
+			pross_file(&opt, opt.string_file[i]);
 	return (0);
 }

@@ -38,27 +38,59 @@ char *ft_getline(int fd) {
     return input;
 }
 
-void	pross_stdin(cmdFunction cmd, char *cmd_name, bool flags)
+void	print_stdin(t_option *opt, uint8_t *hash, const char *input)
 {
-
-	char *input = ft_getline(0);
-	// (void)cmd;
-	(void)cmd_name;
-
-	char *hash = cmd(input);
 	printf("(");
-	flags ? printf("\"%s\n", input) : printf("%s", "stdin");
+	opt->flags & FLAGS_P ? printf("\"%s\"", input) : printf("%s", "stdin");
 	printf(")= ");
-	printf("%s\n", hash);
-
+	opt->cmd.cmd_print(hash);
+	printf("\n");
 }
 
-// void	pross_string(cmdFunction cmd, uint8_t *cmd_name, t_option *opt)
-// {
+void	print_string(t_option *opt, uint8_t *hash, const char *input)
+{
+	if (opt->flags & FLAGS_Q)
+		opt->cmd.cmd_print(hash);
+	else if (opt->flags & FLAGS_R) {
+		opt->cmd.cmd_print(hash);
+		printf(" \"%s\"", input);
+	} else {
+		printf("%s (", opt->cmd.cmd);
+		printf("\"%s\"", input);
+		printf(")= ");
+		opt->cmd.cmd_print(hash);
+	}
+	printf("\n");
+}
 
-// }
+void	print_file(t_option *opt, uint8_t *hash, const char *input)
+{
+	if (opt->flags & FLAGS_Q)
+		opt->cmd.cmd_print(hash);
+	else if (opt->flags & FLAGS_R)
+	{
+		opt->cmd.cmd_print(hash);
+		printf(" %s\n", input);
+	}
+	else
+	{
+		printf("%s (", opt->cmd.cmd);
+		printf("%s", input);
+		printf(")= ");
+		opt->cmd.cmd_print(hash);
+		printf("\n");
+	}
+}
 
-// void	pross_file(cmdFunction cmd, uint8_t *cmd_name, t_option *opt)
-// {
+void	pross_file(t_option *opt, uint8_t *filename)
+{
+	int fd = open((const char *)filename, O_RDONLY);
+	if (fd == -1)
+	{
+		printf("ft_ssl: %s: %s: %s\n", opt->cmd.cmd, filename, strerror(errno));
+		return ;
+	}
 
-// }
+	
+
+}

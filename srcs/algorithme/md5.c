@@ -143,7 +143,7 @@ uint8_t	*md5(const char *str)
 	if (!result)
 		return (NULL);
 	t_md5Context ctx = md5_init();
-	md5_update(&ctx, (uint8_t *)str, strlen(str));
+	md5_update(&ctx, (uint8_t *)str, str ? strlen(str) : 0);
 	md5_finalize(&ctx);
 
 	memcpy(result, ctx.digest, 16);
