@@ -1,11 +1,11 @@
 #include "../../include/algorithme/md5.h"
 
-static uint32_t	S[] = {7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22,
+static const uint32_t	S[] = {7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22,
 					   5,  9, 14, 20, 5,  9, 14, 20, 5,  9, 14, 20, 5,  9, 14, 20,
 					   4, 11, 16, 23, 4, 11, 16, 23, 4, 11, 16, 23, 4, 11, 16, 23,
 					   6, 10, 15, 21, 6, 10, 15, 21, 6, 10, 15, 21, 6, 10, 15, 21};
 
-static uint32_t	K[] = {0xd76aa478, 0xe8c7b756, 0x242070db, 0xc1bdceee,
+static const uint32_t	K[] = {0xd76aa478, 0xe8c7b756, 0x242070db, 0xc1bdceee,
 					   0xf57c0faf, 0x4787c62a, 0xa8304613, 0xfd469501,
 					   0x698098d8, 0x8b44f7af, 0xffff5bb1, 0x895cd7be,
 					   0x6b901122, 0xfd987193, 0xa679438e, 0x49b40821,
@@ -33,20 +33,20 @@ static uint8_t	PADDING[] = {0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 							 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 
 
-t_md5Context	init()
+t_md5Context	md5_init()
 {
 	t_md5Context	ctx;
 
-	ctx.size = (uint64_t)0;
+	ctx.size = 0;
 
-	ctx.buffer[0] = (uint32_t)A;
-	ctx.buffer[1] = (uint32_t)B;
-	ctx.buffer[2] = (uint32_t)C;
-	ctx.buffer[3] = (uint32_t)D;
+	ctx.buffer[0] = A;
+	ctx.buffer[1] = B;
+	ctx.buffer[2] = C;
+	ctx.buffer[3] = D;
 	return (ctx);
 }
 
-void	update(t_md5Context * ctx, uint8_t *input_buf, size_t input_len)
+void	md5_update(t_md5Context * ctx, uint8_t *input_buf, size_t input_len)
 {
 	uint32_t	input[16];
 	uint32_t	offset = ctx->size % 64;
@@ -61,20 +61,20 @@ void	update(t_md5Context * ctx, uint8_t *input_buf, size_t input_len)
 						   (uint32_t)(ctx->input[(j * 4) + 1]) <<  8 |
 						   (uint32_t)(ctx->input[(j * 4)]);
 			}
-			step(ctx->buffer, input);
+			md5_step(ctx->buffer, input);
 			offset = 0;
 		}
 	}
 }
 
 
-void	finalize(t_md5Context *ctx)
+void	md5_finalize(t_md5Context *ctx)
 {
 	uint32_t	input[16];
 	uint32_t	offset = ctx->size % 64;
 	uint32_t	 padding_lenght = offset < 56 ? 56 - offset : (56 + 64) - offset;
 
-	update(ctx, PADDING, padding_lenght);
+	md5_update(ctx, PADDING, padding_lenght);
 	ctx->size -= (uint64_t)padding_lenght;
 
 	for(uint32_t i = 0; i < 14; ++i)
@@ -86,7 +86,7 @@ void	finalize(t_md5Context *ctx)
 	}
 	input[14] = (uint32_t)(ctx->size * 8);
 	input[15] = (uint32_t)((ctx->size * 8) >> 32);
-	step(ctx->buffer, input);
+	md5_step(ctx->buffer, input);
 	for(uint32_t i = 0; i < 4; ++i){
 		ctx->digest[(i * 4) + 0] = (uint8_t)((ctx->buffer[i] & 0x000000FF));
 		ctx->digest[(i * 4) + 1] = (uint8_t)((ctx->buffer[i] & 0x0000FF00) >>  8);
@@ -95,7 +95,7 @@ void	finalize(t_md5Context *ctx)
 	}
 }
 
-void			step(uint32_t *buffer, uint32_t *input)
+void			md5_step(uint32_t *buffer, uint32_t *input)
 {
 	uint32_t AA = buffer[0];
 	uint32_t BB = buffer[1];
@@ -142,9 +142,9 @@ uint8_t	*md5(const char *str)
 	uint8_t	*result = malloc(16 * sizeof(uint8_t));
 	if (!result)
 		return (NULL);
-	t_md5Context ctx = init();
-	update(&ctx, (uint8_t *)str, strlen(str));
-	finalize(&ctx);
+	t_md5Context ctx = md5_init();
+	md5_update(&ctx, (uint8_t *)str, strlen(str));
+	md5_finalize(&ctx);
 
 	memcpy(result, ctx.digest, 16);
 	return (result);

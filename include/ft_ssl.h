@@ -2,6 +2,7 @@
 # define FT_SSL_H
 
 # include "./algorithme/md5.h"
+# include "./algorithme/sha256.h"
 
 typedef uint8_t	*(*cmdFunction)(const char *);
 typedef struct s_command
@@ -29,6 +30,8 @@ cmdFunction select_cmd(const char *cmd);
 uint32_t    flags_or_index(uint32_t argc, char *argv[]);
 uint32_t	argv_index(uint32_t flag_index);
 uint32_t	getflags(uint32_t flag_index);
+
+
 
 
 

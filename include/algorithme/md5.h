@@ -20,17 +20,17 @@
 
 typedef struct
 {
-	uint64_t size;
-	uint32_t buffer[4];
-	uint8_t input[64];
-	uint8_t digest[16];
+	uint64_t	size;
+	uint32_t	buffer[4];
+	uint8_t		input[64];
+	uint8_t		digest[16];
 }				t_md5Context;
 
 
-t_md5Context	init();
-void			update(t_md5Context *ctx, uint8_t *input_buf, size_t input_len);
-void			step(uint32_t *buffer, uint32_t *input);
-void			finalize(t_md5Context *ctx);
+t_md5Context	md5_init();
+void			md5_update(t_md5Context *ctx, uint8_t *input_buf, size_t input_len);
+void			md5_step(uint32_t *buffer, uint32_t *input);
+void			md5_finalize(t_md5Context *ctx);
 uint8_t			*md5(const char *str);
 
 #endif

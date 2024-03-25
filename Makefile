@@ -10,7 +10,7 @@ OBJ_ALGORITHME := $(OBJ_DIR)/algorithme
 
 # Files
 SRCS_FILES := main parsing
-SRCS_ALGORITHME := md5
+SRCS_ALGORITHME := md5 sha256
 
 # Output executable
 NAME := ft_ssl
