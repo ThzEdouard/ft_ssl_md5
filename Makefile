@@ -9,7 +9,7 @@ OBJ_DIR := obj
 OBJ_ALGORITHME := $(OBJ_DIR)/algorithme
 
 # Files
-SRCS_FILES := main parsing
+SRCS_FILES := main parsing print
 SRCS_ALGORITHME := md5 sha256
 
 # Output executable

@@ -15,13 +15,22 @@ int	main(int argc, char *argv[])
 	cmdFunction	cmd = select_cmd(argv[1]);
 	if (!cmd)
 		return (1);
-	uint32_t flags_index = flags_or_index((uint32_t)argc, argv);
+	t_option	opt;
+	uint32_t	flags_index = flags_or_index((uint32_t)argc, argv);
 
-	print_hash(sha256("Hello!"));
-	printf("Résultat des indicateurs : %u\n", getflags(flags_index));
-	printf("Index final : %u\n", argv_index(flags_index));
-	uint8_t *f = cmd("Hello");
-	print_hash(f);
-	free(f);
+	opt.cmd = cmd;
+	opt.flags = getflags(flags_index);
+	set_string_or_file(&opt, argv, argc, argv_index(flags_index));
+
+	pross_stdin(cmd, argv[1], &opt);
+	
+	// for (int i = 0; opt.string_file[i] != NULL; ++i)
+	// 	printf("%s\n", opt.string_file[i]);
+	// print_hash(sha256("Hello!"));
+	// printf("Résultat des indicateurs : %u\n", getflags(flags_index));
+	// printf("Index final : %u\n", argv_index(flags_index));
+	// uint8_t *f = cmd("Hello");
+	// print_hash(f);
+	// free(f);
 	return (0);
 }

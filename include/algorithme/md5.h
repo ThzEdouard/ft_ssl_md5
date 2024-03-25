@@ -32,5 +32,7 @@ void			md5_update(t_md5Context *ctx, uint8_t *input_buf, size_t input_len);
 void			md5_step(uint32_t *buffer, uint32_t *input);
 void			md5_finalize(t_md5Context *ctx);
 uint8_t			*md5(const char *str);
+void			print_md5hash(uint8_t *p);
+
 
 #endif

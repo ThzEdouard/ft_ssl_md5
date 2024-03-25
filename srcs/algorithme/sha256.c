@@ -42,7 +42,7 @@ void	sha_update(t_sha256 *ctx, uint8_t *input_buf, size_t input_len)
 	}
 }
 
-void sha_finalize(t_sha256 *ctx)
+void	sha_finalize(t_sha256 *ctx)
 {
 	uint32_t i;
 	i = ctx->datalen;
@@ -123,9 +123,7 @@ void	sha_step(uint32_t *buffer, uint8_t *input)
 	buffer[7] += HH;
 }
 
-
-
-uint8_t			*sha256(const char *str)
+uint8_t	*sha256(const char *str)
 {
 	uint8_t	*result = malloc(32 * sizeof(uint8_t));
 	if (!result)
@@ -136,4 +134,11 @@ uint8_t			*sha256(const char *str)
 
 	memcpy(result, ctx.digest, 32);
 	return (result);
+}
+
+//a changer 
+void	print_sha256hash(uint8_t *p){
+	for(unsigned int i = 0; i < 32; ++i){
+		printf("%02x", p[i]);
+	}
 }

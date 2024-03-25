@@ -95,7 +95,7 @@ void	md5_finalize(t_md5Context *ctx)
 	}
 }
 
-void			md5_step(uint32_t *buffer, uint32_t *input)
+void	md5_step(uint32_t *buffer, uint32_t *input)
 {
 	uint32_t AA = buffer[0];
 	uint32_t BB = buffer[1];
@@ -148,4 +148,11 @@ uint8_t	*md5(const char *str)
 
 	memcpy(result, ctx.digest, 16);
 	return (result);
+}
+
+//a changer
+void	print_md5hash(uint8_t *p){
+	for(unsigned int i = 0; i < 16; ++i){
+		printf("%02x", p[i]);
+	}
 }

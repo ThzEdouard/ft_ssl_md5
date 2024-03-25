@@ -35,7 +35,17 @@ uint32_t flags_or_index(uint32_t argc, char *argv[])
 		if (flags[x] == NULL)
 			break;
 	}
-	return (result << 16) | (index - 1);
+	return (result << 16) | (index);
+}
+
+void	set_string_or_file(t_option *option, char **argv, int argc, int index)
+{
+	int i = 0;
+	for ( ;index < argc; ++index)
+	{
+		option->string_file[i] = (uint8_t *)argv[index];
+		++i;
+	}
 }
 
 uint32_t	argv_index(uint32_t flag_index)

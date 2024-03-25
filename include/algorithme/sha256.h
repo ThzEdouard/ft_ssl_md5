@@ -37,5 +37,6 @@ void			sha_update(t_sha256 *ctx, uint8_t *input_buf, size_t input_len);
 void			sha_step(uint32_t *buffer, uint8_t *input);
 void			sha_finalize(t_sha256 *ctx);
 uint8_t			*sha256(const char *str);
+void			print_sha256hash(uint8_t *p);
 
 # endif
