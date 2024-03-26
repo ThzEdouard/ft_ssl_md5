@@ -41,11 +41,23 @@ uint32_t flags_or_index(uint32_t argc, char *argv[])
 
 void	set_string_or_file(t_option *option, char **argv, int argc, int index)
 {
-	int i = 0;
-	for ( ;index < argc; ++index)
+	uint32_t i =0;
+	if (option->flags & FLAGS_S)
 	{
-		option->string_file[i] = (uint8_t *)argv[index];
-		++i;
+		option->str = (uint8_t *)argv[index];
+		++index;
+	}
+	if (index < argc)
+	{
+		option->size_file = argc - index;
+		option->file = (uint8_t **)calloc(option->size_file + 1, sizeof(uint8_t *));
+		if (!option->file)
+			return ;
+		for ( ;index < argc; ++index)
+		{
+				option->file[i] = (uint8_t *)argv[index];
+			++i;
+		}
 	}
 }
 

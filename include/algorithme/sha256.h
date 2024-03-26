@@ -6,6 +6,8 @@
 # include <string.h>
 # include <stdlib.h>
 
+# include "../42-libft/include/libft.h"
+
 # define SHA_A 0x6a09e667
 # define SHA_B 0xbb67ae85
 # define SHA_C 0x3c6ef372

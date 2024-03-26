@@ -129,7 +129,7 @@ uint8_t	*sha256(const char *str)
 	if (!result)
 		return (NULL);
 	t_sha256 ctx = sha_init();
-	sha_update(&ctx, (uint8_t *)str, str ? strlen(str) : 0);
+	sha_update(&ctx, (uint8_t *)str, str ? ft_strlen(str) : 0);
 	sha_finalize(&ctx);
 
 	memcpy(result, ctx.digest, 32);

@@ -1,6 +1,6 @@
 # Compiler and flags
 CC := clang
-CFLAGS := -Wall -Wextra -Werror -I$(INCLUDE_DIR) -I$(INCLUDE_ALGO) -g3
+CFLAGS := -Wall -Wextra -Werror -I$(INCLUDE_DIR) -I$(INCLUDE_ALGO) -I./include/42-libft/libft.a -g3
 
 # Directories
 SRC_DIR := srcs
@@ -36,6 +36,7 @@ endef
 all: $(NAME)
 
 $(NAME): $(OBJ) $(OBJ_ALGO)
+	make -C ./include/42-libft
 	$(CC) $(CFLAGS) -o $@ $^
 	@echo "\033[0;32m [OK] \033[0m       \033[0;33m Compiling:\033[0m" $@
 
@@ -54,9 +55,11 @@ $(OBJ_ALGORITHME)/%.o: $(SRC_ALGORITHME)/%.c
 -include $(DEP)
 
 clean:
+	make clean -C ./include/42-libft
 	$(RM) -rf $(OBJ_DIR)
 
 fclean: clean
+	make fclean -C ./include/42-libft
 	$(RM) -f $(NAME)
 
 re: fclean all

@@ -21,9 +21,12 @@ typedef struct s_command
 typedef struct s_option
 {
 	uint32_t	flags;
-	// uint8_t		*string;
-	// uint8_t		*file[1024];
-	uint8_t		*string_file[1024];
+	uint8_t		*input;
+	uint8_t		*hash_input;
+	uint8_t		*str;
+	uint8_t		*hash_str;
+	uint8_t		**file;
+	uint32_t	size_file;
 	t_command	cmd;
 }			t_option;
 
@@ -35,10 +38,12 @@ uint32_t	getflags(uint32_t flag_index);
 void		set_string_or_file(t_option *option, char **argv, int argc, int index);
 
 //print.c
-void	print_stdin(t_option *opt, uint8_t *hash, const char *input);
-void	print_string(t_option *opt, uint8_t *hash, const char *input);
-void	print_file(t_option *opt, uint8_t *hash, const char *input);
+void	print_stdin(t_option *opt, uint8_t *hash, uint8_t *input);
+void	print_string(t_option *opt, uint8_t *hash, uint8_t *input);
+void	print_file(t_option *opt, uint8_t *hash, uint8_t *input);
 void	pross_file(t_option *opt, uint8_t *filename);
+void	print_result(t_option *opt);
+char *ft_getline(int fd);
 
 # define USAGE "usage: ft_ssl command [flags] [file/string]\n"
 # define COMMAND_USAGE "ft_ssl: Error: '%s' is an invalid command.\n\nCommands:\nmd5\nsha256\nFlags:\n-p -q -r -s\n"

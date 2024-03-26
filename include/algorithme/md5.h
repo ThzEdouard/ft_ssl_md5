@@ -6,6 +6,8 @@
 # include <string.h>
 # include <stdlib.h>
 
+# include "../42-libft/include/libft.h"
+
 # define A 0x67452301
 # define B 0xefcdab89
 # define C 0x98badcfe
