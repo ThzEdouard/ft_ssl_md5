@@ -136,7 +136,6 @@ uint8_t	*sha256(const char *str)
 	return (result);
 }
 
-//a changer
 void	print_sha256hash(uint8_t *p){
 	for(unsigned int i = 0; i < 32; ++i){
 		printf("%02x", p[i]);

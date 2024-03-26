@@ -4,8 +4,8 @@ static const char	*flags[] = {"-p", "-q", "-r", "-s", NULL};
 
 static const t_command command_hash_map[] =
 {
-	{"md5", md5, print_md5hash},
-	{"sha256", sha256, print_sha256hash},
+	{"MD5", md5, print_md5hash},
+	{"SHA256", sha256, print_sha256hash},
 	{NULL, NULL, NULL}
 };
 
@@ -13,7 +13,7 @@ t_command select_cmd(const char *cmd)
 {
 	uint32_t i;
 	for(i = 0; command_hash_map[i].cmd != NULL; ++i)
-		if (strcmp((char *)cmd, command_hash_map[i].cmd) == 0)
+		if (ft_strcmp((char *)cmd, command_hash_map[i].cmd) == 0)
 			return (command_hash_map[i]);
 	printf(COMMAND_USAGE, cmd);
 	return (command_hash_map[i]);
@@ -27,7 +27,7 @@ uint32_t flags_or_index(uint32_t argc, char *argv[])
 	{
 		for(x = 0; flags[x] != NULL; ++x)
 		{
-			if (strcmp(flags[x], argv[index]) == 0)
+			if (ft_strcmp(flags[x], argv[index]) == 0)
 			{
 				result |= FLAGS(x);
 				break;
@@ -42,7 +42,7 @@ uint32_t flags_or_index(uint32_t argc, char *argv[])
 void	set_string_or_file(t_option *option, char **argv, int argc, int index)
 {
 	uint32_t i =0;
-	if (option->flags & FLAGS_S)
+	if (option->flags & FLAGS_S && index < argc)
 	{
 		option->str = (uint8_t *)argv[index];
 		++index;
@@ -50,7 +50,7 @@ void	set_string_or_file(t_option *option, char **argv, int argc, int index)
 	if (index < argc)
 	{
 		option->size_file = argc - index;
-		option->file = (uint8_t **)calloc(option->size_file + 1, sizeof(uint8_t *));
+		option->file = (uint8_t **)ft_calloc(option->size_file + 1, sizeof(uint8_t *));
 		if (!option->file)
 			return ;
 		for ( ;index < argc; ++index)

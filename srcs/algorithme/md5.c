@@ -150,7 +150,6 @@ uint8_t	*md5(const char *str)
 	return (result);
 }
 
-//a changer
 void	print_md5hash(uint8_t *p){
 	for(unsigned int i = 0; i < 16; ++i){
 		printf("%02x", p[i]);

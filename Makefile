@@ -1,6 +1,6 @@
 # Compiler and flags
 CC := clang
-CFLAGS := -Wall -Wextra -Werror -I$(INCLUDE_DIR) -I$(INCLUDE_ALGO) -I./include/42-libft/libft.a -g3
+CFLAGS := -Wall -Wextra -Werror -g3
 
 # Directories
 SRC_DIR := srcs
@@ -37,7 +37,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ) $(OBJ_ALGO)
 	make -C ./include/42-libft
-	$(CC) $(CFLAGS) -o $@ $^
+	$(CC) $(CFLAGS) -o $@ $^ -L./include/42-libft -lft
 	@echo "\033[0;32m [OK] \033[0m       \033[0;33m Compiling:\033[0m" $@
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c

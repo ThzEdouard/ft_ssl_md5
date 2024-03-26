@@ -1,26 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tolower.c                                       :+:      :+:    :+:   */
+/*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eflaquet <eflaquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/05 21:17:58 by eflaquet          #+#    #+#             */
-/*   Updated: 2024/03/26 14:12:25 by eflaquet         ###   ########.fr       */
+/*   Created: 2024/03/26 14:45:29 by eflaquet          #+#    #+#             */
+/*   Updated: 2024/03/26 14:46:06 by eflaquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_tolower(int c)
-{
-	if (c >= 65 && c <= 90)
-		c += 32;
-	return (c);
-}
+#include "../include/libft.h"
 
-char	*ft_str_tolower(char *str)
+void	ft_free(void *p)
 {
-	if (str)
-		for (unsigned int i = 0; str[i] != 0; i++)
-			str[i] = ft_tolower(str[i]);
-	return (str);
+	if (p)
+		free(p);
 }

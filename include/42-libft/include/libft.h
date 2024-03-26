@@ -6,7 +6,7 @@
 /*   By: eflaquet <eflaquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 11:24:22 by eflaquet          #+#    #+#             */
-/*   Updated: 2024/03/26 11:42:36 by eflaquet         ###   ########.fr       */
+/*   Updated: 2024/03/26 14:46:16 by eflaquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int		ft_isascii(int c);
 int		ft_isdigit(int c);
 int		ft_isprint(int c);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
+int		ft_strcmp(const char *s1, const char *s2);
 int		ft_tolower(int c);
 int		ft_toupper(int c);
 int		ft_atoi(const char *c);
@@ -69,6 +70,9 @@ t_list	*ft_lstlast(t_list *lst);
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
 char	*ft_str_toupper(char *str);
-char	*ft_str_toupper(char *str);
+char	*ft_str_tolower(char *str);
+
+char	*ft_read_fd(int fd);
+void	ft_free(void *p);
 
 #endif
