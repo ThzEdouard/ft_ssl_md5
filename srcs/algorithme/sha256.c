@@ -132,7 +132,7 @@ uint8_t	*sha256(const char *str)
 	sha_update(&ctx, (uint8_t *)str, str ? ft_strlen(str) : 0);
 	sha_finalize(&ctx);
 
-	memcpy(result, ctx.digest, 32);
+	ft_memcpy(result, ctx.digest, 32);
 	return (result);
 }
 

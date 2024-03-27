@@ -31,7 +31,7 @@ endef
 # Targets
 all: $(NAME)
 
-$(NAME): $(OBJS)
+$(NAME): $(OBJS) $(BONUS_OBJS)
 	@ar rcs $@ $^
 	@echo "\033[0;32m [OK] \033[0m       \033[0;33m Archiving:\033[0m" $@
 
@@ -43,10 +43,6 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 
 -include $(DEP)
 
-bonus: $(BONUS_OBJS)
-	@ar rcs $(NAME) $^
-	@echo "\033[0;32m [OK] \033[0m       \033[0;33m Archiving bonus:\033[0m" $(NAME)
-
 clean:
 	@$(RM) -rf $(OBJ_DIR)
 
@@ -55,4 +51,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re bonus
+.PHONY: all clean fclean re 

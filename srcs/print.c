@@ -26,7 +26,7 @@ static void	print_string(t_option *opt, uint8_t *hash, uint8_t *input)
 	} else {
 		printf("%s (", opt->cmd.cmd);
 		printf("\"%s\"", input);
-		printf(")= ");
+		printf(") = ");
 		opt->cmd.cmd_print(hash);
 	}
 	printf("\n");
@@ -45,7 +45,7 @@ static void	print_file(t_option *opt, uint8_t *hash, uint8_t *input)
 	{
 		printf("%s (", opt->cmd.cmd);
 		printf("%s", input);
-		printf(")= ");
+		printf(") = ");
 		opt->cmd.cmd_print(hash);
 	}
 	printf("\n");

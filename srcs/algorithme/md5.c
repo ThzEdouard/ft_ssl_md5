@@ -146,7 +146,7 @@ uint8_t	*md5(const char *str)
 	md5_update(&ctx, (uint8_t *)str, str ? ft_strlen(str) : 0);
 	md5_finalize(&ctx);
 
-	memcpy(result, ctx.digest, 16);
+	ft_memcpy(result, ctx.digest, 16);
 	return (result);
 }
 
